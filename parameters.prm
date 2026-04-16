@@ -1,0 +1,99 @@
+# =================================================================================
+# Set the number of dimensions (2 or 3 for a 2D or 3D calculation)
+# =================================================================================
+set Number of dimensions = 3
+
+# =================================================================================
+# Set the length of the domain in all three dimensions
+# =================================================================================
+set Domain size X = 100
+set Domain size Y = 100
+set Domain size Z = 100
+
+# =================================================================================
+# Set the element parameters
+# =================================================================================
+set Subdivisions X = 1
+set Subdivisions Y = 1
+set Subdivisions Z = 1
+
+set Refine factor = 5
+
+# Set the polynomial degree of the element (allowed values: 1, 2, or 3)
+set Element degree = 2
+
+# =================================================================================
+# Set the adaptive mesh refinement parameters
+# =================================================================================
+set Mesh adaptivity = true
+
+set Max refinement level = 6
+set Min refinement level = 2
+
+set Steps between remeshing operations = 500
+
+subsection Refinement criterion: phi
+    set Criterion type = VALUE
+    set Value lower bound = -0.99
+    set Value upper bound = 0.99
+end
+
+# =================================================================================
+# Set the time step parameters
+# =================================================================================
+set Time step = 0.0001
+set Number of time steps = 200000
+
+# =================================================================================
+# Set the boundary conditions
+# =================================================================================
+set Boundary condition for variable u = NATURAL
+set Boundary condition for variable phi = NATURAL
+set Boundary condition for variable xi1 = NATURAL
+
+# =================================================================================
+# Set the model constants
+# =================================================================================
+
+# Horizontal anisotropy strength in A(n)
+# Paper uses eps_xy = 0.2 for horizontal growth (Gamma < 1)
+set Model constant eps_xy = 0.2, DOUBLE
+
+# Vertical anisotropy strength in A(n)
+# Paper stellar dendrite case
+set Model constant eps_z = 0.05, DOUBLE
+
+# Vertical/horizontal preference parameter in B(n) and Gamma operator
+# Paper stellar dendrite case
+set Model constant Gamma = 0.5, DOUBLE
+
+# Coupling constant
+set Model constant lambda = 3.0, DOUBLE
+
+# Reduced diffusion coefficient
+set Model constant D_tilde = 1.8801, DOUBLE
+
+# Vapour depletion / attachment parameter
+# Paper stellar dendrite case
+set Model constant Lsat = 1.0, DOUBLE
+
+# Small regularization value
+set Model constant regval = 1.0e-5, DOUBLE
+
+# Initial reduced supersaturation
+# Paper stellar dendrite case
+set Model constant u0 = 0.7, DOUBLE
+
+# =================================================================================
+# Set the output parameters
+# =================================================================================
+set Output condition = EQUAL_SPACING
+set Number of outputs = 6
+set Skip print steps = 10000
+
+# =================================================================================
+# Set the checkpoint/restart parameters
+# =================================================================================
+set Load from a checkpoint = false
+set Checkpoint condition = EQUAL_SPACING
+set Number of checkpoints = 1
